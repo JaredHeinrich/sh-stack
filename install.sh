@@ -2,32 +2,27 @@
 set -e
 echo "Installing sh-stack"
 
-REPO_DIR="$(pwd)/sh-stack"
+if [ -f "sh-stack" ]; then
+    echo "Error: sh-stack already exists in this directory"
+    exit 1
+fi
+TARGET_DIR=$(pwd)
+REPO_DIR=$(mktemp -d)
 export RUSTUP_HOME="$REPO_DIR/rustup"
 export CARGO_HOME="$REPO_DIR/cargo"
 export PATH="$CARGO_HOME/bin:$PATH"
+trap 'rm -rf "$REPO_DIR"' EXIT
 
-# Repo clonen, falls noch nicht vorhanden
-if [ ! -d "$REPO_DIR" ]; then
-    echo "Cloning Repo"
-    git clone https://github.com/JaredHeinrich/sh-stack.git $REPO_DIR
-    cd $REPO_DIR
-    rm install.sh
-    rm -rf .git
-    chmod +x uninstall.sh
-    chmod +x sh-stack.sh
-fi
+echo "Cloning Repo"
+git clone https://github.com/JaredHeinrich/sh-stack.git $REPO_DIR
 
-# Rustup installieren, falls noch nicht vorhanden
-if [ ! -f "$CARGO_HOME/bin/cargo" ]; then
-  echo "Installing Rust"
-  curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
-  "$CARGO_HOME/bin/rustup" default stable
-fi
-
+echo "Installing Rust"
+curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
 
 cd $REPO_DIR
-cargo build --release
+cargo build
 
-echo "Installation finished
-Goto sh-stack ('cd sh-stack') and start stacking with './sh-stack.sh'."
+mv $REPO_DIR/target/debug/sh-stack $TARGET_DIR
+
+echo "Installation finished"
+echo "Run './sh-stack' to start stacking"
