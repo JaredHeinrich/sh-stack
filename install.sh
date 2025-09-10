@@ -11,6 +11,8 @@ export PATH="$CARGO_HOME/bin:$PATH"
 if [ ! -d "$REPO_DIR" ]; then
     echo "Cloning Repo"
     git clone https://github.com/JaredHeinrich/sh-stack.git $REPO_DIR
+    cd $REPO_DIR
+    chmod +x uninstall.sh
 fi
 
 # Rustup installieren, falls noch nicht vorhanden
@@ -23,4 +25,5 @@ fi
 cd $REPO_DIR
 $CARGO_HOME/bin/cargo build --release
 
-echo "Installation finished"
+echo "Installation finished
+Goto sh-stack ('cd sh-stack')and start stacking with './sh-stack.sh'."
