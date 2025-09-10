@@ -2,7 +2,7 @@
 set -e
 echo "Installing sh-stack"
 
-export REPO_DIR="$(pwd)/sh-stack"
+REPO_DIR="$(pwd)/sh-stack"
 export RUSTUP_HOME="$REPO_DIR/rustup"
 export CARGO_HOME="$REPO_DIR/cargo"
 export PATH="$CARGO_HOME/bin:$PATH"
@@ -12,7 +12,10 @@ if [ ! -d "$REPO_DIR" ]; then
     echo "Cloning Repo"
     git clone https://github.com/JaredHeinrich/sh-stack.git $REPO_DIR
     cd $REPO_DIR
+    rm install.sh
+    rm -rf .git
     chmod +x uninstall.sh
+    chmod +x sh-stack.sh
 fi
 
 # Rustup installieren, falls noch nicht vorhanden
@@ -23,7 +26,7 @@ fi
 
 
 cd $REPO_DIR
-$CARGO_HOME/bin/cargo build --release
+cargo build --release
 
 echo "Installation finished
-Goto sh-stack ('cd sh-stack')and start stacking with './sh-stack.sh'."
+Goto sh-stack ('cd sh-stack') and start stacking with './sh-stack.sh'."
