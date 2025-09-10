@@ -22,6 +22,7 @@ fi
 if [ ! -f "$CARGO_HOME/bin/cargo" ]; then
   echo "Installing Rust"
   curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
+  "$CARGO_HOME/bin/rustup" default stable
 fi
 
 
