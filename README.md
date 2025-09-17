@@ -2,7 +2,9 @@
 
 ## Installation:
 ### Mac/Linux:
-`curl https://raw.githubusercontent.com/JaredHeinrich/sh-stack/refs/heads/main/install.sh | bash`
+```bash
+curl https://raw.githubusercontent.com/JaredHeinrich/sh-stack/refs/heads/main/install.sh | bash
+```
 
 ## Idee:
 
