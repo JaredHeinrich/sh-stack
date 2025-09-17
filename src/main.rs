@@ -1,4 +1,8 @@
-use std::{thread, time::Duration, io::{self, Write}};
+use std::{
+    io::{self, Write},
+    thread,
+    time::Duration,
+};
 
 fn main() {
     println!("Willkommen zum Beispiel-Installationsprogramm!");
@@ -30,7 +34,8 @@ fn simulate_work() {
     let bar_length = 20;
     for i in 0..=bar_length {
         let percent = (i as f32 / bar_length as f32) * 100.0;
-        print!("\r[{:3.0}%] [{}>{}]",
+        print!(
+            "\r[{:3.0}%] [{}>{}]",
             percent,
             "=".repeat(i),
             " ".repeat(bar_length - i)
